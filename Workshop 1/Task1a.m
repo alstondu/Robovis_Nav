@@ -7,9 +7,9 @@ r_ea = get_r_ea(); % 3*1
 r_es = get_r_es(); % 8*3*11
 r_es_0 = r_es(:,:,1); % 8*3
 % disp(r_es) % Task1 b)
-r_as = zeros(length(r_es_0),1);
-C_I_e = ones(3,3, length(r_es_0));
-u_as = zeros(size(r_es_0));
+r_as = zeros(length(r_es_0),1); % 8*1
+C_I_e = ones(3,3, length(r_es_0)); % 3*3*8
+u_as = zeros(size(r_es_0)); % 8*1
 for i = 1: length(r_es_0)
     r_as(i,:) = sqrt((r_es_0(i,:)' - r_ea)' * (r_es_0(i,:)' - r_ea));
     C_I_e(:,:,i) = [1,                      omega_ie*r_as(i,:)/c,   0;...

@@ -48,7 +48,7 @@ for i = 1:length(time)
     r_ea_est = x_est(1:3,:);
 
     %% Convert x_est to latitude, longitude, and height
-    [L_b,lambda_b,h_b,v_eb_n] = pv_ECEF_to_NED(r_ea_est,0);
+    [L_b,lambda_b,h_b,v_eb_n] = pv_ECEF_to_NED(r_ea_est,zeros(3,1));
     L_b = rad2deg(L_b);
     lambda_b = rad2deg(lambda_b);
     p_a(i,:) = [L_b,lambda_b,h_b];

@@ -39,12 +39,13 @@ H = [0,0,-1,0;
      0,-1,0,0];
 epsilon_z_pre = zeros(4,1);
 DR_Solution_C = zeros(size(DR_Solution));
-DR_Solution_C(1,:) = DR_Solution(1,:);
+DR_Solution_C(1,:) = DR_Solution(1,:); %？
+% DR_Solution_C(1,:) = GNSS_Solution(1,:);
 
 %% Iteration
 for i = 2:length(t)
     % Current radii of curvatures
-    [R_N,R_E] = Radii_of_curvature(L_k(i-1));
+    % [R_N,R_E] = Radii_of_curvature(L_k(i-1));
     % Transition matrix
     Phi = [eye(2),zeros(2);
         [tau_s/(R_N + h(i-1)),0;
@@ -59,7 +60,7 @@ for i = 2:length(t)
     % Propagate error covariance matrix
     P_p = Phi*P*Phi' + Q;
     % Update R_N and R_E
-    % [R_N,R_E] = Radii_of_curvature(L_k(i)); %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    [R_N,R_E] = Radii_of_curvature(L_k(i)); %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Measurement noise covariance matrix
     R = [[Sigma_Gr^2/(R_N + h(i)),0;
         0,Sigma_Gr^2/((R_E + h(i))^2*cos(L_k(i))^2)],zeros(2);
@@ -82,3 +83,4 @@ end
 % Convert the corrected solution back to degree
 DR_Solution_C(:,1:2) = rad2deg(DR_Solution_C(:,1:2));
 DR_Solution_C = [t, DR_Solution_C];
+disp(DR_Solution_C)

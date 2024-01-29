@@ -46,4 +46,5 @@ DR_Solution = [L_k, Lamda_k, v_i];
 % Save the data for Task 2
 save('DR_Solution.mat','DR_Solution');
 DR_Solution = [t,DR_Solution];
+disp(DR_Solution)
 

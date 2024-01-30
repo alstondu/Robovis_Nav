@@ -39,8 +39,8 @@ H = [0,0,-1,0;
      0,-1,0,0];
 epsilon_z_pre = zeros(4,1);
 DR_Solution_C = zeros(size(DR_Solution));
-DR_Solution_C(1,:) = DR_Solution(1,:); %？
-% DR_Solution_C(1,:) = GNSS_Solution(1,:);
+% Use GNSS solution as initial pose as requested 
+DR_Solution_C(1,:) = GNSS_Solution(1,:);
 
 %% Iteration
 for i = 2:length(t)

@@ -19,7 +19,7 @@ load('DR_Solution.mat','DR_Solution');
 DR_Solution(:,1:2) = deg2rad(DR_Solution(:,1:2)); % Convert to rad
 
 %% Initialization
-x = zeros(4,1); % States
+x = zeros(4,1); % States 
 L_k = GNSS_data(:,2); % Latitude
 Lamda_k = GNSS_data(:,3); % Longitude
 h = GNSS_data(:,4); % Height

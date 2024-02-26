@@ -1,4 +1,4 @@
-# Workshop 4: Factor Graphs and Estimation
+# Workshop 5: Factor Graphs and Estimation
 
 This lab introduces you to graph-based optimization approaches to localiztion. This is the domi- nant approach for developing and deploying SLAM systems, because of its excellent theoretical and implementation advantages. Highly optimized libraries, including [g2o](https://mengwenhe-cmu.github.io/Reading-Reports/Research/Localization/Graph_Optimization/g2o_A_General_Framework_for_Graph_Optimization/paper.pdf), [GTSAM](https://repository.gatech.edu/entities/publication/0c2ac17c-1df4-48fe-8532-8f746868934a) and [Ceres](http://ceres-solver.org/), are widely used.
 The graph-based optimization approaches, however, operate rather differently from a Kalman filter or other estimation algorithms you have seen. Therefore, this workshop serves two pur- poses:

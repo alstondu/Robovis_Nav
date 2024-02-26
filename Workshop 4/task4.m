@@ -1,11 +1,9 @@
-% This script supports task3, which is to implement the landmark
-% update step. The file itself is identical to task2.m, but is provided
-% separately should you want to try some indepth analysis.
+% This script supports task4, which is to hack around with the cross
+% correlations. Same as task2 and task3.
 
 % The simulator configuration and graphical output configurations. See
 % task0.m for a description
 simulatorConfiguration = dotbot.SimulatorConfiguration();
-simulatorConfiguration.enableGPS = false;
 simulatorConfiguration.enableLandmarkSensor = true;
 simulatorConfiguration.maximumStepNumber = 5000;
 
@@ -17,6 +15,12 @@ simulator = dotbot.DotBotSimulator(simulatorConfiguration);
 % Create the localization system. This actually does the legwork of doing
 % SLAM
 slamSystem = dotbot.DotBotSLAMSystem(simulatorConfiguration);
+
+%% ADDED TASK 4
+% A flag wasn't asked for in the question, but it makes it easier
+% for implementing / showing the example
+slamSystem.setMuckUpCrossCorrelations(true);
+%% END ADDED TASK 4
 
 % Create the graphics output object which manages the output figure. Note
 % that, unlike task0, we have to add the system here as well.
@@ -42,7 +46,7 @@ end
 [TSimulator, XTrueHistory] = simulator.platformHistory();
 
 % Plot out state information
-sigmaErrorBounds = minislam.graphics.FigureManager.getFigure('Task 3 Estimation Error Results');
+sigmaErrorBounds = minislam.graphics.FigureManager.getFigure('Task 4 Estimation Error Results');
 clf
 
 stateLabels = {'$x$','$\dot{x}$','$y$','$\dot{y}$'};

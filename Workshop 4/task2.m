@@ -1,6 +1,6 @@
-% This script supports task3, which is to implement the landmark
-% update step. The file itself is identical to task2.m, but is provided
-% separately should you want to try some indepth analysis.
+% This script supports task2, which is to implement the landmark
+% initialization step. The main thing here is that we disable the GPS and
+% enable the landmark sensor.
 
 % The simulator configuration and graphical output configurations. See
 % task0.m for a description
@@ -42,7 +42,7 @@ end
 [TSimulator, XTrueHistory] = simulator.platformHistory();
 
 % Plot out state information
-sigmaErrorBounds = minislam.graphics.FigureManager.getFigure('Task 3 Estimation Error Results');
+sigmaErrorBounds = minislam.graphics.FigureManager.getFigure('Task 2 Estimation Error Results');
 clf
 
 stateLabels = {'$x$','$\dot{x}$','$y$','$\dot{y}$'};

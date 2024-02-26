@@ -8,23 +8,28 @@ import one_d_static_model_answer.*;
 
 % Some parameters
 numberOfMeasurements = 100;
-sigmaR(1) = 1;
-sigmaR(2) = 10;
-
-% The information (inverse covariance) for the measurement edge
-omegaR = 1 ./ sigmaR;
 
 % Ground truth location
 trueX = 10;
 
+% sigmaR = 10; % Before activity 4
+sigmaR = [1,10];
+
+% The information (inverse covariance) for the measurement edge
+omegaR = 1 ./ sigmaR;
+% omegaR = 1 / sigmaR; % Before activity 4
+
 % Odd even flag. This causes us to "switch" between the two sensors. The
 % first line means we always use the good sensor, the second case
 % alternates between the two
-%oddEven = ones(1, numberOfMeasurements);
+% oddEven = ones(1, numberOfMeasurements);
+% mod(a,b): get the remainer of a/b
 oddEven = mod(0:numberOfMeasurements-1, 2) + 1;
 
+sigma = sqrt(sigmaR(oddEven)); % Sigma R alternation as an array
 % Sample the noises for the different observations
-z = trueX + sqrt(sigmaR(oddEven)) .* randn(numberOfMeasurements, 1);
+z = trueX + sigma .* randn(numberOfMeasurements, 1);
+% z = trueX + sigmaR * randn(numberOfMeasurements, 1); % Before activity 4
 
 % Create the graph
 graph = SparseOptimizer();
@@ -59,6 +64,7 @@ for k = 1 : numberOfMeasurements
 
     % Set the measurement value and the measurement covariance
     e.setMeasurement(z(k));
+    disp(z(k))
     e.setInformation(omegaR(oddEven(k)));
 
     % Add the edge to the graph; the graph now knows we have these edges

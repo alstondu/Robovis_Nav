@@ -128,7 +128,7 @@ gH(2)=plot(trueX(1, :), trueX(3, :), '-+');
 
 % Optimize the graph
 tic
-graph.optimize(10)
+graph.optimize(20)
 toc
 
 % Extract the optimized state estimate and plot

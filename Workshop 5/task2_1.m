@@ -72,8 +72,8 @@ for n = 1 : numberOfTimeSteps
     % If this isn't the first vertex, add the dynamics
     if (n > 1)
         processModelEdge = ObjectProcessModelEdge();
-        processModelEdge.setVertex(1, v{n-1});
-        processModelEdge.setVertex(2, v{n});
+        processModelEdge.setVertex(1, v{n-1}); % First vertex is the one before it
+        processModelEdge.setVertex(2, v{n}); % Second vertex is the current vertex
         processModelEdge.setMeasurement([0;0;0;0]);
         processModelEdge.setF(F);
         processModelEdge.setInformation(omegaQ);
@@ -100,14 +100,16 @@ end
 
 % Initialise the optimization. This is done here because it's a bit
 % expensive and if we cache it, we can do it multiple times
-graph.initializeOptimization();
+graph.initializeOptimization(); % computeError()
 
 % Create some output as we go
-x = zeros(4, numberOfTimeSteps);
+x1 = zeros(4, numberOfTimeSteps);
+x2 = zeros(4, numberOfTimeSteps);
 
 % First copy the state values - these are the prior we set the graph to
+% In this case, all 0
 for n = 1 : numberOfTimeSteps
-    x(:, n) = v{n}.estimate();
+    x1(:, n) = v{n}.estimate();
 end
 
 % Plot the prior and the truth
@@ -116,20 +118,20 @@ clf
 
 % Plot. Note that we capture the line handle. This is overkill in this
 % case, but it's a useful habit to get into for labelling graphs.
-gH(1)=plot(x(1, :), x(3,:));
+gH(1)=plot(x1(1, :), x1(3,:));
 hold on
 gH(2)=plot(trueX(1, :), trueX(3, :));
 
 % Optimize the graph
 tic
-graph.optimize(5000)
+graph.optimize(5000) % linearizeOplus()
 toc
 
 % Extract the optimized state estimate and plot
 for n = 1 : numberOfTimeSteps
-    x(:, n) = v{n}.estimate();
+    x2(:, n) = v{n}.estimate();
 end
-gH(3)=plot(x(1, :), x(3, :), 'LineWidth', 2);
+gH(3)=plot(x2(1, :), x2(3, :), 'LineWidth', 2);
 
 gH(4)=plot(z(1,:),z(2,:));
 
